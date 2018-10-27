@@ -7,21 +7,27 @@
 //============================================================================
 
 #include <iostream>
-#include <string>
 #include "Command.hpp"
 
 using namespace std;
 
+
+
 int main() {
 
 
-	char input;
-
-	scanf("%c",&input);
-
+//	scanf("%c",&input);
 //	printf("%s",Command::CMD().AddCommand(input));
 
-	cout << Command::CMD().AddCommand('a') << endl;
+	cout << Command::CMD().AddCommand('1') << endl;
+	cout << Command::CMD().AddCommand('+') << endl;
+	cout << Command::CMD().AddCommand('2') << endl;
+	cout << Command::CMD().AddCommand(38) << endl;
+
+//	const char str[10] = "td";
+//
+//	printf("%s",str);
+
 
 	return 0;
 

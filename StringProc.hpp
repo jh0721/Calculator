@@ -8,26 +8,21 @@
 #ifndef STRINGPROC_HPP_
 #define STRINGPROC_HPP_
 
-#include <vector>
 #include <string>
 
 using namespace std;
 
 class StringProc
 {
-//private:
-//	vector<const char*> m_strList;
-//	const char m_charList[50];
-//
-//public:
-//	StringProc();
-//	~StringProc();
-//
-//	void PushChar(const char a_data);
-//	void PopChar();
+private:
+	int checkDouble(const char*,int);
 
-	// string
-//	string getDataForString() const;
+public:
+	StringProc(){};
+	~StringProc(){};
+
+	long double strTolongdouble(string);
+	string longdoubleToString(long double);
 
 	// 숫자 문자 변환
 	// TODO
