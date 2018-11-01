@@ -13,6 +13,8 @@
 
 using namespace std;
 
+int exponentiation_base10(int);
+
 int StringProc::checkDouble(const char* str,int length)
 {
 	for(int i=0;i<length;i++)
@@ -36,7 +38,7 @@ long double StringProc::strTolongdouble(string str)
 
 	for(int i=0;i<strLength;i++)
 	{
-		integer = integer + (data[i+1]-48)+10*(strLength-i-1);
+		integer = integer + (data[i+1]-48)*exponentiation_base10(strLength-i-1);
 	}
 
 	if(dotPosition)
@@ -66,4 +68,18 @@ string StringProc::longdoubleToString(long double data)
 	return to_string(data);
 }
 
+int exponentiation_base10(int exponent)
+{
+	int result = 1;
+
+	if(exponent > 0)
+	{
+		for(int i=0;i<exponent;i++)
+		{
+			result *= 10;
+		}
+	}
+
+	return result;
+}
 

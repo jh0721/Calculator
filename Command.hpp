@@ -12,6 +12,7 @@
 #include "StringProc.hpp"
 #include "StringStack.hpp"
 #include "Common.hpp"
+#include "SymbolConvertor.hpp"
 
 using namespace std;
 
@@ -19,21 +20,26 @@ class Command
 {
 private:
 	long double m_pData;
+
 	StringProc m_strProc;
 	StringStack m_strStack;
+	SymbolConvertor m_symbolconvertor;
 	char m_operateSymbol;
+	bool m_isFirst;
 
 	Command(const long double pData=0)
-		:m_pData(pData),m_strProc(StringProc()),m_strStack(StringStack()),m_operateSymbol(0)
+		:m_pData(pData),
+		 m_strProc(StringProc()),
+		 m_strStack(StringStack()),
+		 m_symbolconvertor(SymbolConvertor()),
+		 m_operateSymbol(0),
+		 m_isFirst(true)
 	{ }
 	~Command(){};
 
-	bool checkInput(char);
-	string calcSymbol(char);
-
-	string calcNonOperationSymbol(char);
-	string calcOperationSymbol(char);
-	string operate(char);
+	void calcNonOperationSymbol(char);
+	void calcOperationSymbol(char);
+	void operate(char);
 
 public:
 	string AddCommand(char);

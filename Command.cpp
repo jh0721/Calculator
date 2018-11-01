@@ -17,146 +17,121 @@ Command& Command::CMD()
 
 string Command::AddCommand(char input)
 {
+	SYMBOL symbol = m_symbolconvertor.getSYMBOL(input);
 
-	if(checkInput(input))
+	if(symbol < 10)
 	{
 		m_strStack.push(input);
-		return m_strStack.getString();
 	}
 
-	string result = calcSymbol(input);
-
-	return result;
-}
-
-bool Command::checkInput(char input)
-{
-	// type enum check ...
-
-	return (input > 47);
-}
-
-string Command::calcSymbol(char input)
-{
-	string result;
-	result = calcNonOperationSymbol(input);
-
-	if(result == "")
+	if(10 < symbol < 15)
 	{
-		result = calcOperationSymbol(input);
-		m_strStack = StringStack();
+		calcNonOperationSymbol(input);
 	}
 
-	return result;
+	if(14 < symbol)
+	{
+		calcOperationSymbol(input);
+		m_strStack = StringStack();
+		return m_strProc.longdoubleToString(m_pData);
+	}
+
+	return m_strStack.getString();
+
 }
 
-string Command::calcNonOperationSymbol(char input)
+void Command::calcNonOperationSymbol(char input)
 {
-	string result;
 	switch(input)
 	{
-		case 39: // SYMBOL_CALC_AC
+		case 'a': // SYMBOL_CALC_AC
 		{
 			m_pData = 0;
-			result = m_strStack.getString();
+		}
+		/* no break */
+		case 'c':
+		{
+			m_strStack = StringStack();
 			break;
 		}
-		case 46: // SYMBOL_CALC_DOT
+		case '.': // SYMBOL_CALC_DOT
 		{
 			m_strStack.push(input);
-			result = m_strStack.getString();
 			break;
 		}
 
-		case 36: // SYMBOL_CALC_REMOVE
+		case 'r': // SYMBOL_CALC_REMOVE
 		{
 			m_strStack.remove();
-			result = m_strStack.getString();
 			break;
 		}
 
-		case 35: // SYMBOL_CALC_SIGNED
-		{
-			m_strStack.addSigned();
-			result = m_strStack.getString();
-			break;
-		}
-		default:
-		{
-			result = "";
-		}
 	}
-	return result;
+
 }
 
-string Command::calcOperationSymbol(char input)
+void Command::calcOperationSymbol(char input)
 {
-	string result;
-	if(m_operateSymbol != 0)
+	if(m_isFirst)
 	{
-		result = operate(m_operateSymbol);
-	}else{
 		m_pData = m_strProc.strTolongdouble(m_strStack.getString());
-		result = m_strStack.getString();
+		m_isFirst = false;
+	}
+
+	if(!m_isFirst && !(m_strStack.isEmpty()) )
+	{
+		operate(m_operateSymbol);
 	}
 
 	m_operateSymbol = input;
 
-	return result;
 }
 
-string Command::operate(char operateSymbol)
+void Command::operate(char operateSymbol)
 {
-	string result;
-	switch(operateSymbol)
+
+	switch(m_operateSymbol)
 	{
 
 		case 37: // SYMBOL_CALC_PERCENT
 		{
 			m_pData = m_strProc.strTolongdouble(m_strStack.getString());
-			result = m_strStack.getString();
 			break;
 		}
 
-		case 43: // SYMBOL_CALC_PLUS
+		case '+': // SYMBOL_CALC_PLUS
 		{
 			m_pData = m_pData+m_strProc.strTolongdouble(m_strStack.getString());
-			result = m_strProc.longdoubleToString(m_pData);
 			break;
 		}
 
-		case 45: // SYMBOL_CALC_MUNIUS
+		case '-': // SYMBOL_CALC_MUNIUS
 		{
 			m_pData = m_pData-m_strProc.strTolongdouble(m_strStack.getString());
-			result = m_strProc.longdoubleToString(m_pData);
 			break;
 		}
 
-		case 47: // SYMBOL_CALC_DIVIDE
+		case '/': // SYMBOL_CALC_DIVIDE
 		{
 			m_pData = m_pData/m_strProc.strTolongdouble(m_strStack.getString());
-			result = m_strProc.longdoubleToString(m_pData);
 			break;
 		}
 
-		case 42: // SYMBOL_CALC_MULTYPLE
+		case '*': // SYMBOL_CALC_MULTYPLE
 		{
 			m_pData = m_pData*m_strProc.strTolongdouble(m_strStack.getString());
-			result = m_strProc.longdoubleToString(m_pData);
 			break;
 		}
 
-		case 38: // SYMBOL_CALC_EQUAL
+		case '=':
 		{
-			m_operateSymbol = 0;
 			m_pData = m_strProc.strTolongdouble(m_strStack.getString());
-			result = m_strStack.getString();
+
 			break;
 		}
-
 
 	}
 
-	return result;
+
 }
 

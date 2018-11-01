@@ -25,10 +25,11 @@ public:
 
 	void push(char);
 	void remove();
+	bool isEmpty();
 
 	string getString();
-
 	void addSigned();
+//	void addResult(const char[50]);
 
 };
 

@@ -25,7 +25,12 @@ void StringStack::remove()
 		strStack[0] = '0';
 	}
 
+}
 
+bool StringStack::isEmpty()
+{
+
+	return (strStack[1] == '0');
 }
 
 string StringStack::getString()
@@ -43,4 +48,6 @@ void StringStack::addSigned()
 		strStack[0] = 32;
 	}
 }
+
+
 
