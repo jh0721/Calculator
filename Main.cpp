@@ -7,35 +7,36 @@
 //============================================================================
 
 #include <iostream>
+#include <string>
 #include "Command.hpp"
 
 #include <map>
 
 using namespace std;
 
-void inputCommand(char);
-void stringCommand(const char*);
+void inputCommand(const char*);
+void runCommand(char);
 
 int main() {
 
 // input은 정해진 문자열만 들어온다고 가정
 
-	stringCommand("123+3*-=*1=1-");
+	inputCommand("1%");
 
 	return 0;
 
 }
 
-void stringCommand(const char* str)
+void inputCommand(const char* str)
 {
 	int len = strlen(str);
 	for(int i=0;i<len;i++)
 	{
-		inputCommand(str[i]);
+		runCommand(str[i]);
 	}
 }
 
-void inputCommand(char input)
+void runCommand(char input)
 {
 	printf("%s \n",Command::CMD().AddCommand(input).data());
 }

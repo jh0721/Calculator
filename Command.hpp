@@ -20,26 +20,30 @@ class Command
 {
 private:
 	long double m_pData;
-
 	StringProc m_strProc;
 	StringStack m_strStack;
 	SymbolConvertor m_symbolconvertor;
-	char m_operateSymbol;
-	bool m_isFirst;
+
+	SYMBOL m_operateSymbol;
+	string m_print;
 
 	Command(const long double pData=0)
 		:m_pData(pData),
 		 m_strProc(StringProc()),
 		 m_strStack(StringStack()),
 		 m_symbolconvertor(SymbolConvertor()),
-		 m_operateSymbol(0),
-		 m_isFirst(true)
+		 m_operateSymbol(SYMBOL_CALC_EQUAL),
+		 m_print("0")
 	{ }
 	~Command(){};
 
-	void calcNonOperationSymbol(char);
-	void calcOperationSymbol(char);
-	void operate(char);
+	void calcSymbol(SYMBOL);
+
+	void calcOperationSymbol(SYMBOL);
+	void operate(SYMBOL);
+	void clear(SYMBOL);
+
+	bool isFirst();
 
 public:
 	string AddCommand(char);

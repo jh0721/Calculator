@@ -12,7 +12,7 @@
 typedef enum
 {
 
-	SYMBOL_NUM_0,
+	SYMBOL_NUM_0 = 0,
 	SYMBOL_NUM_1,
 	SYMBOL_NUM_2,
 	SYMBOL_NUM_3,
@@ -36,8 +36,6 @@ typedef enum
 	SYMBOL_CALC_DIVIDE,
 	SYMBOL_CALC_MULTYPLE,
 	SYMBOL_CALC_EQUAL, // 21
-
-
 
 }SYMBOL;
 

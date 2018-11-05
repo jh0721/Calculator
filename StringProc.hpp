@@ -15,7 +15,7 @@ using namespace std;
 class StringProc
 {
 private:
-	int checkDouble(const char*,int);
+
 
 public:
 	StringProc(){};

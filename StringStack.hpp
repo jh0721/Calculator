@@ -26,10 +26,14 @@ public:
 	void push(char);
 	void remove();
 	bool isEmpty();
+	bool hasDot();
 
-	string getString();
+	const int strLength();
+	const string getString();
+
 	void addSigned();
-//	void addResult(const char[50]);
+	void clear();
+	void setString(string);
 
 };
 

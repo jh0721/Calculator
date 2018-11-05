@@ -15,7 +15,7 @@ using namespace std;
 
 int exponentiation_base10(int);
 
-int StringProc::checkDouble(const char* str,int length)
+int checkDecimal(const char* str,int length)
 {
 	for(int i=0;i<length;i++)
 	{
@@ -31,7 +31,7 @@ long double StringProc::strTolongdouble(string str)
 	long double result;
 	const char* data = str.data();
 	int strLength = str.length()-1;
-	int dotPosition = checkDouble(data,strLength);
+	int dotPosition = checkDecimal(data,strLength);
 
 	int integer = 0;
 	double decimal = 0;
