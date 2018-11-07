@@ -30,7 +30,7 @@ void StringStack::remove()
 bool StringStack::isEmpty()
 {
 
-	return (strStack[1] == '0');
+	return (top == 1);
 }
 
 bool StringStack::hasDot()

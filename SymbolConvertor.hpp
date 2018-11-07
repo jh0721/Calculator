@@ -22,6 +22,7 @@ public:
 	SymbolConvertor();
 
 	SYMBOL getSYMBOL(char);
+	char SYMBOLtoChar(SYMBOL);
 
 
 };

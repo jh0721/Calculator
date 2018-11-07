@@ -65,11 +65,13 @@ void Command::calcSymbol(SYMBOL input)
 			// 0 다음에 붙이는 경우
 			if(m_strStack.strLength() == 1)
 			{
+
 				m_strStack.push('0');
 			}
 
 			// 일반숫자에 붙이는경우
-			m_strStack.push(input);
+//			m_strStack.push(m_symbolconvertor.SYMBOLtoChar(input));
+			m_strStack.push('.');
 			m_print = m_strStack.getString();
 
 			break;
@@ -143,12 +145,6 @@ void Command::calcSymbol(SYMBOL input)
 void Command::calcOperationSymbol(SYMBOL input)
 {
 
-	// 데이터가 처음 들어온 경우
-	if(isFirst())
-	{
-		m_pData = m_strProc.strTolongdouble(m_strStack.getString());
-	}
-
 	// 데이터 에 저장된 값이 있고, strStack에 값이 있는 경우
 	if(!(isFirst()) && !(m_strStack.isEmpty()) )
 	{
@@ -220,5 +216,12 @@ void Command::clear(SYMBOL input)
 
 bool Command::isFirst()
 {
-	return (m_pData == 0);
+
+	if(m_pData == 0)
+	{
+		m_pData = m_strProc.strTolongdouble(m_strStack.getString());
+		return true;
+	}
+
+	return false;
 }

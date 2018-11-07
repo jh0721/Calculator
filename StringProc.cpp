@@ -13,7 +13,7 @@
 
 using namespace std;
 
-int exponentiation_base10(int);
+float exponentiation_base10(int);
 
 int checkDecimal(const char* str,int length)
 {
@@ -28,6 +28,7 @@ int checkDecimal(const char* str,int length)
 
 long double StringProc::strTolongdouble(string str)
 {
+
 	long double result;
 	const char* data = str.data();
 	int strLength = str.length()-1;
@@ -36,22 +37,26 @@ long double StringProc::strTolongdouble(string str)
 	int integer = 0;
 	double decimal = 0;
 
-	for(int i=0;i<strLength;i++)
-	{
-		integer = integer + (data[i+1]-48)*exponentiation_base10(strLength-i-1);
-	}
-
 	if(dotPosition)
 	{
 		integer = 0;
-		for(int i=0;i<dotPosition;i++)
+		for(int i=dotPosition;i>1;i--)
 		{
-			integer = integer+ (data[i+1]-48)+10*(dotPosition-i-1);
+			integer = integer+ (data[i-1]-48)*exponentiation_base10(dotPosition - i);
 		}
 
-		for(int i=0;dotPosition<i<strLength;i++)
+		for(int i=0; i < (strLength - dotPosition) ;i++)
 		{
-			decimal = decimal+(data[dotPosition+2]-48)+0.1*(i);
+			decimal = decimal+(data[dotPosition+1+i]-48)*exponentiation_base10(-1-i);
+		}
+
+
+
+	}else{
+
+		for(int i=0;i<strLength;i++)
+		{
+			integer = integer + (data[i+1]-48)*exponentiation_base10(strLength-i-1);
 		}
 	}
 
@@ -68,9 +73,9 @@ string StringProc::longdoubleToString(long double data)
 	return to_string(data);
 }
 
-int exponentiation_base10(int exponent)
+float exponentiation_base10(int exponent)
 {
-	int result = 1;
+	float result = 1;
 
 	if(exponent > 0)
 	{
@@ -78,7 +83,18 @@ int exponentiation_base10(int exponent)
 		{
 			result *= 10;
 		}
+	}else if(exponent == 0)
+	{
+
+	}else{
+		for(int i=0;i<(exponent*(-1));i++)
+		{
+			result = result * 0.1;
+		}
+
 	}
+
+
 
 	return result;
 }

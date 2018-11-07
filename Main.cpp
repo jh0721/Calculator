@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include "Command.hpp"
+#include "SymbolConvertor.hpp"
 
 #include <map>
 
@@ -21,7 +22,7 @@ int main() {
 
 // input은 정해진 문자열만 들어온다고 가정
 
-	inputCommand("1%");
+	inputCommand("1*0=");
 
 	return 0;
 

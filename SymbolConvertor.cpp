@@ -19,7 +19,6 @@ SymbolConvertor::SymbolConvertor()
 	inputMap['7'] = SYMBOL_NUM_7;
 	inputMap['8'] = SYMBOL_NUM_8;
 	inputMap['9'] = SYMBOL_NUM_9;
-	inputMap['0'] = SYMBOL_NUM_6;
 
 
 	inputMap['a'] = SYMBOL_AC;
@@ -42,4 +41,19 @@ SYMBOL SymbolConvertor::getSYMBOL(char input)
 	return inputMap[input];
 }
 
+char SymbolConvertor::SYMBOLtoChar(SYMBOL input)
+{
+	char highest = inputMap.rbegin()->first;
+	map<char,SYMBOL>::key_compare mycomp = inputMap.key_comp();
 
+	map<char,SYMBOL>::iterator it = inputMap.begin();
+	do {
+		if( (it->second) == input)
+		{
+			return it->first;
+		}
+	} while ( mycomp((*it++).first, highest) );
+
+
+	return 0;
+}
