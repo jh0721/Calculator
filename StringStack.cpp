@@ -19,9 +19,13 @@ void StringStack::remove()
 {
 	if(top != 1)
 	{
-		strStack[top] = 0;
 		top--;
-	}else{
+		strStack[top] = 0;
+
+	}
+
+	if(top == 1)
+	{
 		strStack[1] = '0';
 	}
 

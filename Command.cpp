@@ -79,7 +79,6 @@ void Command::calcSymbol(SYMBOL input)
 
 		case SYMBOL_REMOVE: // SYMBOL_CALC_REMOVE
 		{
-
 			// 0 다음에 지우기 stack -> '0'
 			// 연산기호 다음 지우기 stack -> '0'
 			// 연산 완료 후 지우기 stack -> '0'
@@ -93,6 +92,7 @@ void Command::calcSymbol(SYMBOL input)
 
 			// 일반숫자 다음 지우기
 			m_strStack.remove();
+
 			m_print = m_strStack.getString();
 
 			break;
@@ -207,10 +207,11 @@ void Command::clear(SYMBOL input)
 	if(input == SYMBOL_AC )
 	{
 		m_pData = 0;
+		m_operateSymbol = SYMBOL_CALC_EQUAL;
+
 	}
 
 	m_strStack.clear();
-	m_operateSymbol = SYMBOL_CALC_EQUAL;
 	m_print = m_strStack.getString();
 }
 
