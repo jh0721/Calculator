@@ -19,7 +19,11 @@ int checkDecimal(const char* str,int length)
 {
 	for(int i=0;i<length;i++)
 	{
-		if(str[i] == 46) return i;
+		if(str[i] == 46)
+		{
+			return i;
+		}
+
 	}
 
 	return 0;
@@ -28,11 +32,10 @@ int checkDecimal(const char* str,int length)
 
 long double StringProc::strTolongdouble(string str)
 {
-
 	long double result;
 	const char* data = str.data();
 	int strLength = str.length()-1;
-	int dotPosition = checkDecimal(data,strLength);
+	int dotPosition = checkDecimal(data,str.length());
 
 	int integer = 0;
 	double decimal = 0;
@@ -49,8 +52,6 @@ long double StringProc::strTolongdouble(string str)
 		{
 			decimal = decimal+(data[dotPosition+1+i]-48)*exponentiation_base10(-1-i);
 		}
-
-
 
 	}else{
 

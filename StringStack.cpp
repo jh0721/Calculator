@@ -86,9 +86,12 @@ void StringStack::setString(string str)
 {
 	clear();
 
+	cout << "str" << str << endl;
+
 	for(int i=0;i<str.length();i++)
 	{
 		push(str.data()[i]);
+		cout << "data " << str.data()[i] << endl;
 	}
 
 }

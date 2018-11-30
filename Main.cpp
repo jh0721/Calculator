@@ -39,15 +39,7 @@ int main() {
 
 // input은 정해진 문자열만 들어온다고 가정
 
-	case1();
-	case2();
-	case3();
-	case4();
-	case5();
-	case6();
-	case7();
-	case8();
-	case9();
+	inputCommand("3+4=");
 
 	return 0;
 
@@ -90,7 +82,7 @@ void case2()
 	print("case2");
 	print(" ");
 
-	inputCommand("5.1+6.4=");
+	inputCommand("5.1+6.4=*7=");
 	inputCommand("5.2-6.3=");
 	inputCommand("5.4*6.5=");
 	inputCommand("5.2/6.3=");
@@ -130,11 +122,7 @@ void case4()
 	inputCommand("c");
 	inputCommand("5c");
 
-	// 결과값 ?
-	// 1+4c 1+
-	// 4*c  4*
 	inputCommand("3+4*c3+3=a");
-
 	inputCommand("3+4ac3+3=a");
 //	inputCommand("3+4cc3+3=a");
 	inputCommand("3+4.c3+3=a");
@@ -155,8 +143,6 @@ void case5()
 
 	inputCommand(".a");
 	inputCommand("5.a");
-	// 계산기 7.2 연산우선순위
-	// 5.1
 	inputCommand("3+4*.3+3=a");
 
 	inputCommand("3+4a.3+3=a");
@@ -164,9 +150,6 @@ void case5()
 //	inputCommand("3+4..3+3=a");
 	inputCommand("3+4r.3+3=a");
 	inputCommand("3+4!.4+3=a");
-
-	// 계산기 6.4
-	// 6.04
 	inputCommand("3+4%.4+3=a");
 	inputCommand("3+4=.4+3=a");
 
@@ -182,8 +165,6 @@ void case6()
 
 	inputCommand("ra");
 	inputCommand("5ra");
-	// 계산기 18 연산 우선순위
-	// 24
 	inputCommand("3+4*r3+3=a");
 
 	inputCommand("3+4ar3+3=a");
@@ -208,7 +189,6 @@ void case7()
 
 	inputCommand("!a");
 	inputCommand("5!a");
-	// 연산우선순위
 	inputCommand("3+4*!3+3=a");
 
 	inputCommand("3+4a!3+3=a");
@@ -233,13 +213,12 @@ void case8()
 
 	inputCommand("%a");
 	inputCommand("5%a");
-	// 연산자 우선순위
 	inputCommand("3+4*%3+3=a");
 
 	inputCommand("3+4a%3+3=a");
 	inputCommand("3+4c%3+3=a");
-	// 4. // 0.38??
 	inputCommand("3+4.%3+3=a");
+	// 3+4r%3
 	inputCommand("3+4r%3+3=a");
 	// -26.96???
 	inputCommand("3+4!%4+3=a");
@@ -259,11 +238,11 @@ void case9()
 
 	inputCommand("=a");
 	inputCommand("5=a");
+	/////3+4*=3
 	inputCommand("3+4*=3+3=a");
 
 	inputCommand("3+4a=3+3=a");
 	inputCommand("3+4c=3+3=a");
-	// 4. 숫자변환시 40으로 변환...
 	inputCommand("3+4.=3+3=a");
 	inputCommand("3+4r=3+3=a");
 	inputCommand("3+4!=4+3=a");

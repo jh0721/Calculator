@@ -41,9 +41,26 @@ void Command::calcSymbol(SYMBOL input)
 		case SYMBOL_CALC_MUNIUS:
 		case SYMBOL_CALC_MULTYPLE:
 		case SYMBOL_CALC_DIVIDE:
-		case SYMBOL_CALC_EQUAL:
 		{
 			calcOperationSymbol(input);
+			break;
+		}
+
+		case SYMBOL_CALC_EQUAL:
+		{
+			if(isOperate(input))
+			{
+				long double cData = m_strProc.strTolongdouble(m_strStack.getString());
+				m_pData = operate(m_pData,cData,m_pOperator);
+				m_print = m_strProc.longdoubleToString(m_pData);
+				m_pOperator = input;
+				m_pData = 0;
+				m_strStack.clear();
+
+			}else{
+
+			}
+
 			break;
 		}
 
@@ -65,12 +82,13 @@ void Command::calcSymbol(SYMBOL input)
 			// 0 다음에 붙이는 경우
 			if(m_strStack.strLength() == 1)
 			{
-
 				m_strStack.push('0');
 			}
 
 			// 일반숫자에 붙이는경우
-//			m_strStack.push(m_symbolconvertor.SYMBOLtoChar(input));
+			// 방법1
+			//m_strStack.push(m_symbolconvertor.SYMBOLtoChar(input));
+			// 방법2
 			m_strStack.push('.');
 			m_print = m_strStack.getString();
 
@@ -127,8 +145,7 @@ void Command::calcSymbol(SYMBOL input)
 			}
 
 			long double temp = m_strProc.strTolongdouble(m_strStack.getString());
-			m_strStack.setString(m_strProc.longdoubleToString(temp*0.01));
-			m_print = m_strStack.getString();
+			m_print = m_strProc.longdoubleToString(temp*0.01);
 
 			break;
 		}
@@ -144,55 +161,51 @@ void Command::calcSymbol(SYMBOL input)
 
 void Command::calcOperationSymbol(SYMBOL input)
 {
-
-	// 데이터 에 저장된 값이 있고, strStack에 값이 있는 경우
-	if(!(isFirst()) && !(m_strStack.isEmpty()) )
+	// 1. 이전 데이터, 이전 연산자, 현재데이터가 있는상태에서 연산자가 들어온 경우
+	// 우선순위 연산자
+	// 전 전연산자가 +/- 이고 이전 연산자가*,/ 인 경우
+	if(isOperate(input))
 	{
-		operate(m_operateSymbol);
+		long double cData = m_strProc.strTolongdouble(m_strStack.getString());
+		m_pData = operate(m_pData,cData,m_pOperator);
+		m_print = m_strProc.longdoubleToString(m_pData);
+
+	}else{
+		m_pData = m_strProc.strTolongdouble(m_strStack.getString());
+		m_print = m_strStack.getString();
 	}
 
-	m_operateSymbol = input;
+	m_pOperator = input;
 	m_strStack.clear();
-
-	m_print = m_strProc.longdoubleToString(m_pData);
 
 }
 
-void Command::operate(SYMBOL operateSymbol)
+bool Command::isOperate(SYMBOL input)
+{
+	long double cData = m_strProc.strTolongdouble(m_strStack.getString());
+
+	if( m_pData * cData ) return true;
+
+	return false;
+}
+
+long double Command::operate(int pData,int cData,SYMBOL Operator)
 {
 
-	switch(m_operateSymbol)
+	switch(Operator)
 	{
 
 		case SYMBOL_CALC_PLUS: // SYMBOL_CALC_PLUS
-		{
-			m_pData = m_pData+m_strProc.strTolongdouble(m_strStack.getString());
-			break;
-		}
+		{	return pData+cData; }
 
 		case SYMBOL_CALC_MUNIUS: // SYMBOL_CALC_MUNIUS
-		{
-			m_pData = m_pData-m_strProc.strTolongdouble(m_strStack.getString());
-			break;
-		}
+		{	return pData - cData; }
 
 		case SYMBOL_CALC_DIVIDE: // SYMBOL_CALC_DIVIDE
-		{
-			m_pData = m_pData/m_strProc.strTolongdouble(m_strStack.getString());
-			break;
-		}
+		{	return pData/cData;	}
 
 		case SYMBOL_CALC_MULTYPLE: // SYMBOL_CALC_MULTYPLE
-		{
-			m_pData = m_pData*m_strProc.strTolongdouble(m_strStack.getString());
-			break;
-		}
-
-		case SYMBOL_CALC_EQUAL:
-		{
-			m_pData = m_strProc.strTolongdouble(m_strStack.getString());
-			break;
-		}
+		{	return pData*cData; }
 
 		default:
 		{
@@ -200,6 +213,8 @@ void Command::operate(SYMBOL operateSymbol)
 		}
 
 	}
+
+	return 0;
 }
 
 void Command::clear(SYMBOL input)
@@ -207,7 +222,7 @@ void Command::clear(SYMBOL input)
 	if(input == SYMBOL_AC )
 	{
 		m_pData = 0;
-		m_operateSymbol = SYMBOL_CALC_EQUAL;
+		m_pOperator = SYMBOL_CALC_EQUAL;
 
 	}
 
@@ -215,14 +230,4 @@ void Command::clear(SYMBOL input)
 	m_print = m_strStack.getString();
 }
 
-bool Command::isFirst()
-{
 
-	if(m_pData == 0)
-	{
-		m_pData = m_strProc.strTolongdouble(m_strStack.getString());
-		return true;
-	}
-
-	return false;
-}
